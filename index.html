@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>公共スライド</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    .card-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    .card-item {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      border-radius: 1rem;
+      width: 100px;
+    }
+    button {
+      margin: 1rem 0.5rem 0;
+      padding: 0.5rem 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="title">『公共』って なあに？</h1>
+  <div id="content">
+    <p style="font-size: 1.2rem;">
+      じぶんだけの もの じゃないよ。<br />
+      みんなで つかう もの のことだよ。
+    </p>
+  </div>
+  <div>
+    <button onclick="prev()" id="prev">まえへ</button>
+    <button onclick="next()" id="next">つぎへ</button>
+  </div>
+
+  <script>
+    const slides = [
+      {
+        title: "『公共』って なあに？",
+        content: '<p style="font-size: 1.2rem;">じぶんだけの もの じゃないよ。<br />みんなで つかう もの のことだよ。</p>'
+      },
+      {
+        title: "みんなでつかうもの①",
+        content: '<ul class="card-list"><li class="card-item">こうえん</li><li class="card-item">としょかん</li><li class="card-item">がっこう</li></ul>'
+      },
+      {
+        title: "みんなでつかうもの②",
+        content: '<ul class="card-list"><li class="card-item">バス</li><li class="card-item">えき</li><li class="card-item">しょくどう</li></ul>'
+      },
+      {
+        title: "みんなで つかうから...",
+        content: '<p style="font-size: 1.2rem;">みんなが つかうから、<br />ルールを まもって たいせつに しようね。</p>'
+      }
+    ];
+    let current = 0;
+    function updateSlide() {
+      document.getElementById('title').innerHTML = slides[current].title;
+      document.getElementById('content').innerHTML = slides[current].content;
+      document.getElementById('prev').disabled = current === 0;
+      document.getElementById('next').disabled = current === slides.length - 1;
+    }
+    function prev() {
+      if (current > 0) {
+        current--;
+        updateSlide();
+      }
+    }
+    function next() {
+      if (current < slides.length - 1) {
+        current++;
+        updateSlide();
+      }
+    }
+  </script>
+</body>
+</html>
