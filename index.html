@@ -1,71 +1,92 @@
-import { useState } from "react";
 
-const slides = [
-  {
-    title: "『公共』って なあに？",
-    content: (
-      <p style={{ fontSize: "1.2rem" }}>
-        じぶんだけの もの じゃないよ。<br />
-        みんなで つかう もの のことだよ。
-      </p>
-    )
-  },
-  {
-    title: "みんなでつかうもの①",
-    content: (
-      <ul style={{ listStyle: "none", padding: 0, display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-        <li style={{ border: "1px solid #ccc", padding: "1rem", borderRadius: "1rem", width: "100px" }}>こうえん</li>
-        <li style={{ border: "1px solid #ccc", padding: "1rem", borderRadius: "1rem", width: "100px" }}>としょかん</li>
-        <li style={{ border: "1px solid #ccc", padding: "1rem", borderRadius: "1rem", width: "100px" }}>がっこう</li>
-      </ul>
-    )
-  },
-  {
-    title: "みんなでつかうもの②",
-    content: (
-      <ul style={{ listStyle: "none", padding: 0, display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-        <li style={{ border: "1px solid #ccc", padding: "1rem", borderRadius: "1rem", width: "100px" }}>バス</li>
-        <li style={{ border: "1px solid #ccc", padding: "1rem", borderRadius: "1rem", width: "100px" }}>えき</li>
-        <li style={{ border: "1px solid #ccc", padding: "1rem", borderRadius: "1rem", width: "100px" }}>しょくどう</li>
-      </ul>
-    )
-  },
-  {
-    title: "みんなで つかうから...",
-    content: (
-      <p style={{ fontSize: "1.2rem" }}>
-        みんなが つかうから、<br />
-        ルールを まもって たいせつに しようね。
-      </p>
-    )
-  }
-];
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>公共スライド</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    .card-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    .card-item {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      border-radius: 1rem;
+      width: 100px;
+    }
+    button {
+      margin: 1rem 0.5rem 0;
+      padding: 0.5rem 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="title">『公共』って なあに？</h1>
+  <div id="content">
+    <p style="font-size: 1.2rem;">
+      じぶんだけの もの じゃないよ。<br />
+      みんなで つかう もの のことだよ。
+    </p>
+  </div>
+  <div>
+    <button onclick="prev()" id="prev">まえへ</button>
+    <button onclick="next()" id="next">つぎへ</button>
+  </div>
 
-export default function PublicSlide() {
-  const [current, setCurrent] = useState(0);
-
-  return (
-    <div style={{ padding: "2rem", textAlign: "center", fontFamily: "sans-serif" }}>
-      <h1 style={{ fontSize: "2rem", fontWeight: "bold" }}>{slides[current].title}</h1>
-
-      <div style={{ marginTop: "1.5rem" }}>{slides[current].content}</div>
-
-      <div style={{ marginTop: "2rem" }}>
-        <button 
-          onClick={() => setCurrent((prev) => Math.max(prev - 1, 0))}
-          disabled={current === 0}
-          style={{ marginRight: "1rem", padding: "0.5rem 1rem" }}
-        >
-          まえへ
-        </button>
-        <button 
-          onClick={() => setCurrent((prev) => Math.min(prev + 1, slides.length - 1))}
-          disabled={current === slides.length - 1}
-          style={{ padding: "0.5rem 1rem" }}
-        >
-          つぎへ
-        </button>
-      </div>
-    </div>
-  );
-}
+  <script>
+    const slides = [
+      {
+        title: "『公共』って なあに？",
+        content: '<p style="font-size: 1.2rem;">じぶんだけの もの じゃないよ。<br />みんなで つかう もの のことだよ。</p>'
+      },
+      {
+        title: "みんなでつかうもの①",
+        content: '<ul class="card-list"><li class="card-item">こうえん</li><li class="card-item">としょかん</li><li class="card-item">がっこう</li></ul>'
+      },
+      {
+        title: "みんなでつかうもの②",
+        content: '<ul class="card-list"><li class="card-item">バス</li><li class="card-item">えき</li><li class="card-item">しょくどう</li></ul>'
+      },
+      {
+        title: "みんなで つかうから...",
+        content: '<p style="font-size: 1.2rem;">みんなが つかうから、<br />ルールを まもって たいせつに しようね。</p>'
+      }
+    ];
+    let current = 0;
+    function updateSlide() {
+      document.getElementById('title').innerHTML = slides[current].title;
+      document.getElementById('content').innerHTML = slides[current].content;
+      document.getElementById('prev').disabled = current === 0;
+      document.getElementById('next').disabled = current === slides.length - 1;
+    }
+    function prev() {
+      if (current > 0) {
+        current--;
+        updateSlide();
+      }
+    }
+    function next() {
+      if (current < slides.length - 1) {
+        current++;
+        updateSlide();
+      }
+    }
+  </script>
+</body>
+</html>
